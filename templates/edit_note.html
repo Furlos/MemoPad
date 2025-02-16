@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактирование заметки</title>
+</head>
+<body>
+    <h2>Редактировать заметку</h2>
+    <form method="POST">
+        <textarea name="content" rows="5" cols="40">{{ note.content }}</textarea>
+        <br>
+        <button type="submit">Сохранить</button>
+        <a href="{{ url_for('index') }}">Отмена</a>
+    </form>
+</body>
+</html>
