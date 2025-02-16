@@ -48,6 +48,11 @@ def register():
             flash('Email already exists!', 'danger')
             return redirect(url_for('register'))
 
+        user = User.query.filter_by(username=username).first()
+        if user:
+            flash('Username already exists!', 'danger')
+            return redirect(url_for('register'))
+
         new_user = User(username=username, email=email, password=password)
         db.session.add(new_user)
         db.session.commit()
