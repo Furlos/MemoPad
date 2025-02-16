@@ -4,23 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notebook</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f4f8fb;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            color: #2196F3;
+            text-align: center;
+        }
+
+        a {
+            color: #2196F3;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        a:hover{
+          text-decoration:underline;
+        }
+
+
+        textarea {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            min-height: 100px; /* Set a minimum height */
+
+        }
+
+        button {
+            background-color: #2196F3;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1976D2;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 15px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+        }
+        li p{
+          margin:0;
+        }
+
+        li small {
+            color: #999;
+        }
+
+        li a {
+          float:right;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to your Notebook!</h1>
-    <a href="{{ url_for('logout') }}">Logout</a>
-    <h2>Your Notes</h2>
-    <form action="{{ url_for('add_note') }}" method="POST">
-        <textarea name="content" placeholder="Write your note here" required></textarea>
-        <button type="submit">Add Note</button>
-    </form>
+    <div class="container">
+      <h1>Welcome to your Notebook!</h1>
+      <a href="{{ url_for('logout') }}">Logout</a>
 
-    <ul>
-        {% for note in notes %}
-            <li>
-                <p>{{ note.content }} <small>{{ note.date_created }}</small></p>
-                <a href="{{ url_for('delete_note', id=note.id) }}">Delete</a>
-            </li>
-        {% endfor %}
-    </ul>
+      <h2>Your Notes</h2>
+        <form action="{{ url_for('add_note') }}" method="POST">
+            <textarea name="content" placeholder="Write your note here" required></textarea>
+            <button type="submit">Add Note</button>
+        </form>
+
+        <ul>
+            {% for note in notes %}
+                <li>
+                    <p>{{ note.content }} <small>{{ note.date_created }}</small></p>
+                    <a href="{{ url_for('delete_note', id=note.id) }}">Delete</a>
+                </li>
+            {% endfor %}
+        </ul>
+
+    </div>
 </body>
 </html>
+

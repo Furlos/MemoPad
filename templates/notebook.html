@@ -4,37 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Блокнот</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f4f8fb; /* Светло-голубой фон */
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #2196F3; /* Голубой заголовок */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        textarea {
+            width: calc(100% - 22px); /* Ширина с учетом padding */
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box; /* Включает padding и border в общую ширину */
+        }
+
+        button {
+            background-color: #2196F3; /* Голубая кнопка */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1976D2; /* Темнее при наведении */
+        }
+
+        .note {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+        }
+        .note p{
+          margin:0;
+        }
+
+        .note small {
+            color: #999;
+        }
+
+        a {
+            color: #2196F3;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        hr {
+            margin: 20px 0;
+            border: none;
+            border-top: 1px solid #eee;
+        }
+    </style>
 </head>
 <body>
-    <h2>Ваши заметки</h2>
+    <div class="container">
+        <h2>Ваши заметки</h2>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <p style="color: {% if category == 'success' %}green{% else %}red{% endif %};">{{ message }}</p>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <p style="color: {% if category == 'success' %}green{% else %}red{% endif %};">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
 
-    <form method="POST" action="{{ url_for('add_note') }}">
-        <textarea name="content" rows="4" cols="50" placeholder="Введите новую заметку"></textarea><br>
-        <button type="submit">Добавить заметку</button>
-    </form>
+        <form method="POST" action="{{ url_for('add_note') }}">
+            <textarea name="content" rows="4" cols="50" placeholder="Введите новую заметку"></textarea><br>
+            <button type="submit">Добавить заметку</button>
+        </form>
 
-    <hr>
-
-    {% for note in notes %}
-        <div>
-            <p>{{ note.content }}</p>
-            <small>Создано: {{ note.date_created.strftime('%Y-%m-%d %H:%M:%S') }}</small>
-            <br>
-            <a href="{{ url_for('edit_note', id=note.id) }}">✏️ Редактировать</a>
-            <a href="{{ url_for('delete_note', id=note.id) }}" onclick="return confirm('Удалить заметку?')">❌ Удалить</a>
-        </div>
         <hr>
-    {% endfor %}
 
-    <br>
-    <a href="{{ url_for('logout') }}">Выйти</a>
+        {% for note in notes %}
+            <div class="note">
+                <p>{{ note.content }}</p>
+                <small>Создано: {{ note.date_created.strftime('%Y-%m-%d, %H:%M:%S') }}</small>
+                <br>
+                <a href="{{ url_for('edit_note', id=note.id) }}">✏️ Редактировать</a>
+                <a href="{{ url_for('delete_note', id=note.id) }}" onclick="return confirm('Удалить заметку?')">❌ Удалить</a>
+            </div>
+            <hr>
+        {% endfor %}
+
+        <br>
+        <a href="{{ url_for('logout') }}">Выйти</a>
+    </div>
 </body>
 </html>

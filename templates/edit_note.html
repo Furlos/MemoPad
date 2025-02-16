@@ -4,14 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Редактирование заметки</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f4f8fb;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #2196F3;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #2196F3;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1976D2;
+        }
+
+        a {
+            display: inline-block; /* Allows for button-like styling */
+            margin-left: 10px;
+            padding: 10px 20px;
+            color: #2196F3;
+            text-decoration: none;
+            border: 1px solid #2196F3;
+            border-radius: 4px;
+        }
+
+        a:hover {
+            background-color: #e3f2fd; /* Light blue background on hover */
+        }
+
+
+    </style>
 </head>
 <body>
-    <h2>Редактировать заметку</h2>
-    <form method="POST">
-        <textarea name="content" rows="5" cols="40">{{ note.content }}</textarea>
-        <br>
-        <button type="submit">Сохранить</button>
-        <a href="{{ url_for('index') }}">Отмена</a>
-    </form>
+    <div class="container">
+        <h2>Редактировать заметку</h2>
+        <form method="POST">
+            <textarea name="content" rows="5" cols="40">{{ note.content }}</textarea>
+            <br>
+            <button type="submit">Сохранить</button>
+            <a href="{{ url_for('index') }}">Отмена</a>
+        </form>
+    </div>
 </body>
 </html>
